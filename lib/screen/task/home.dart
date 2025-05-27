@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:task_manager/screen/task/cancelTaskScreen.dart';
+import 'package:task_manager/screen/task/completedTaskScreen.dart';
+import 'package:task_manager/screen/task/newTaskScreen.dart';
+import 'package:task_manager/screen/task/progressTaskScreen.dart';
+import 'package:task_manager/style/style.dart';
+import 'package:task_manager/utility/utility.dart';
+
+class homeScreen extends StatefulWidget {
+  homeScreen({super.key});
+
+  @override
+  State<homeScreen> createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
+  int TabIndex = 0;
+
+  Map profileInfo = {
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "photo":
+        'data:image/jpeg;base64,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'
+  };
+
+  GetProfileInfp() async {
+    String? email = await ReadUserData('email');
+    String? firstName = await ReadUserData('firstName');
+    String? lastName = await ReadUserData('lastName');
+    String? photo = await ReadUserData('photo');
+    setState(() {
+      profileInfo = {
+        "email": "$email",
+        "firstName": "$firstName",
+        "lastName": "$lastName",
+        "photo":
+            'data:image/jpeg;base64,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'
+      };
+    });
+  }
+
+  @override
+  void initState() {
+    GetProfileInfp();
+    super.initState();
+  }
+
+  ontap(int index) {
+    setState(() {
+      TabIndex = index;
+    });
+  }
+
+  List<Widget> Screen = [
+    const Newtaskscreen(),
+    const Progresstaskscreen(),
+    const Completedtaskscreen(),
+    const Canceltaskscreen()
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: TaskAppBar(context, profileInfo),
+      floatingActionButton: FloatingActionButton(backgroundColor:Colors.yellow,shape:RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(18))),
+        onPressed: () {
+        Navigator.pushNamed(context, "/TaskCreate");
+      },child:Icon(Icons.add,size: 28,),),
+      body: Screen[TabIndex],
+      bottomNavigationBar: appBottomNav(TabIndex, ontap),
+    );
+  }
+}
